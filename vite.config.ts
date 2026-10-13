@@ -9,7 +9,7 @@ export default defineConfig({
     tanstackStart({ server: { entry: "server" } }),
     react(),
     tailwindcss(),
-    nitro({ preset: "cloudflare-module" }),
+    nitro(),
   ],
   resolve: { tsconfigPaths: true, dedupe: ["react", "react-dom"] },
 });
