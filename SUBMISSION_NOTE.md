@@ -1,15 +1,9 @@
-# Lead Pilot AI - AI-Powered Sales Follow-Up Agent
+# Lead Pilot AI — Sales Follow-Up Agent
 
-Lead Pilot AI is a sales workspace for a five-rep packaging-equipment team. The dashboard prioritizes leads by follow-up urgency and supports filtering by temperature, status, rep, and source. Reps can review each buyer's WhatsApp-style conversation, log incoming or outgoing messages, edit and copy a suggested follow-up, and mark it as sent. Leads, messages, and activities are stored in Supabase.
+I built Lead Pilot AI, a follow-up workspace for a five-rep packaging-equipment team. Reps can see leads by urgency and filter them by temperature, status, owner, or source; review the conversation; log messages; and edit, copy, and mark a suggested follow-up as sent. Lead, message, and activity data are stored in Supabase.
 
-## How the agent classifies leads
+For each analysis, the agent reads the lead context and chronological conversation. When configured, the OpenAI Responses API (default model `gpt-4.1-mini`) returns a schema-validated temperature, evidence-based reason, intent signals, next action, follow-up date, and message draft. Hot indicates strong buying intent, active quote/demo/order discussion, concrete budget or timing, or an urgent unanswered question. Warm indicates genuine interest with requirements or timing still unclear. Cold indicates weak engagement, repeated unanswered outreach, a distant timeline, or an opt-out; opt-outs produce no draft. If the API key is absent or the call fails, a deterministic fallback scores buying-signal keywords in the last three incoming messages, then adjusts for recency, unanswered follow-ups, and distant timelines: 5+ is Hot, 2–4 Warm, and below 2 Cold. Opt-outs always override the score.
 
-The agent reviews the chronological conversation and lead context. **Hot** means clear buying intent, an active quote or demo, concrete budget or deadline, or an urgent unanswered buyer question. **Warm** means genuine interest with unclear requirements or timing, including supplier comparisons. **Cold** means weak engagement, repeated unanswered follow-ups, a distant buying timeline, or an opt-out. Opt-outs suppress suggested outreach. The agent also returns an evidence-based reason, intent signals, next action, follow-up date, and draft message.
+The AI tools used are the OpenAI Responses API for runtime analysis and AI-assisted coding tools during development. The app is built with TanStack Start, React, and TypeScript, with Supabase for persistence.
 
-## AI tools
-
-Analysis uses a configurable LLM Responses API endpoint and requests strict JSON output, validated with Zod before saving. The default model is `gpt-4.1-mini`; the provider, model, and API key are configurable through server environment variables. If the API key is missing or the request fails, a deterministic weighted rule-based classifier analyzes buying signals, recency, unanswered questions, and follow-up history.
-
-## What I would build next
-
-Add rep accounts and role-based access, import leads and chats from CSV or WhatsApp, and schedule daily analysis with rep-specific digests. I would also collect rep corrections to improve classification and evaluate both the LLM and fallback against labeled conversations.
+Next, I would add rep accounts and role-based access, import leads and conversations from CSV or WhatsApp, and run scheduled daily analyses with rep-specific digests. I would also let reps correct classifications and use those corrections to evaluate and improve the agent against labeled conversations.
